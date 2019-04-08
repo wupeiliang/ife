@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>IFE JavaScript Task 06</title>
+  <style type="text/css">
+    #display {
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    #display div {
+      width: 30px;
+      height: 30px;
+      float: left;
+      text-align: center;
+      line-height: 30px;
+      margin-left: 10px;
+      color: #ffffff;
+      font-size: 14px;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="input">
+      <input type="text" id="numInput" />
+      <button type="button" id="leftIn">左侧入</button>
+      <button type="button" id="rightIn">右侧入</button>
+      <button type="button" id="leftOut">左侧出</button>
+      <button type="button" id="rightOut">右侧出</button>
+    </div>
+    <div id="display"></div>
+  </div>
+  <script>
+    (function () {
+      var queue = [];
+      var renderQueue = function (q) {
+        if (queue.length > 0) {
+          var html = '';
+          queue.forEach(function (value, index) {
+            html += '<div>'+value+'</div>'
+          })
+          document.getElementById('display').innerHTML = html;
+        } else {
+          document.getElementById('display').innerHTML = '';
+        }
+      }
+      
+      document.getElementById('leftIn').onclick = function () {
+        console.log('left in');
+        var num = document.getElementById('numInput').value;
+        queue.unshift(num);
+        renderQueue()
+      }
+
+      document.getElementById('rightIn').onclick = function () {
+        console.log('right in');
+        var num = document.getElementById('numInput').value;
+        queue.push(num);
+        renderQueue();
+      }
+
+      document.getElementById('leftOut').onclick = function () {
+        console.log('left out');
+        queue.shift();
+        console.log(queue);
+        renderQueue();
+      }
+
+      document.getElementById('rightOut').onclick = function () {
+        console.log('right in');
+        queue.pop();
+        console.log(queue);
+        renderQueue();
+      }
+    })()
+  </script>
+</body>
+
+</html>
